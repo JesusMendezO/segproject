@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "bs-stepper": "^1.7.0",
+    "sweetalert2": "^11.3.10"
+  }
+}
