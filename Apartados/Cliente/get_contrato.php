@@ -24,7 +24,7 @@ include('../../Conexion/conexion.php');
     <!-- Theme style -->
     <link rel="stylesheet" href="../../recursos/dist/css/adminlte.min.css">
     <!-- Bootstrap 4.0-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../Cliente/css/bootstrap.css" />
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
     <!--DataTables-->
@@ -35,7 +35,7 @@ include('../../Conexion/conexion.php');
 </head>
 
 
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini bodyp ">
     <div class="wrapper">
         <!-- Navbar -->
         <div id="nav-bar">
@@ -150,6 +150,7 @@ include('../../Conexion/conexion.php');
                                                                 <div class="input-group-text"><i class="fas fa-user"></i>
                                                                 </div>
                                                                 <select class="form-control" name="cliente" id="cliente">
+                                                                <option value="">Seleccione un Cliente </option>
                                                                     <?php
                                                                     $sql = ("SELECT * FROM cliente");
                                                                     $query = $conn->query($sql);
@@ -157,8 +158,11 @@ include('../../Conexion/conexion.php');
                                                                     // foreach ($vendedores as $key => $value) {
                                                                     //     echo '<option  value="'.$value["Rut"].'">'.$value["Nombre"].' </option>';
                                                                     //     }
+                                                                    
                                                                      while ($valores = mysqli_fetch_assoc($query)) {
-                                                                        echo '<option value="' . $valores['Rut'] . '">' . $valores['Nombre'] . '</option>';
+                                                                        echo '
+                                                                       
+                                                                        <option value="' . $valores['Rut'] . '">' . $valores['Nombre'] . '</option>';
                                                                        
                                                                     }
                                                                     
@@ -172,7 +176,7 @@ include('../../Conexion/conexion.php');
                                                             <div class="input-group-prepend">
                                                                 <div class="input-group-text"><i class="fa fa-id-card" aria-hidden="true"></i>
                                                                 </div>
-                                                                <input type="text" class="form-control" name="RUT" id="RUT" placeholder="98.123.567-K">
+                                                                <input type="text" class="form-control" name="RUT" id="RUT" placeholder="98.123.567-K" disabled>
                                                             </div>
                                                         </div>
 
@@ -186,7 +190,7 @@ include('../../Conexion/conexion.php');
                                                             <div class="input-group-prepend">
                                                                 <div class="input-group-text"><i class="fas fa-user"></i>
                                                                 </div>
-                                                                <input type="text" class="form-control" name="address" id="address" placeholder="Edificio el bosque...">
+                                                                <input type="text" class="form-control" name="address" id="address" placeholder="Edificio el bosque..." disabled>
                                                             </div>
                                                         </div>
 
@@ -195,16 +199,8 @@ include('../../Conexion/conexion.php');
                                                             <div class="input-group-prepend">
                                                                 <div class="input-group-text"><i class="fas fa-building"></i>
                                                                 </div>
-                                                                <select class="form-control" name="comuna" id="comuna">
-
-                                                                    <?php
-                                                                    $sql = ("SELECT * FROM comuna");
-                                                                    $query = $conn->query($sql);
-                                                                    while ($valores = mysqli_fetch_array($query)) {
-                                                                        echo '<option value="' . $valores['id_comuna'] . '">' . $valores['Nombre_comuna'] . '</option>';
-                                                                    }
-                                                                    ?>
-                                                                </select>
+                                                                <input type="text" class="form-control" name="comuna" id="comuna" placeholder="comuna..." disabled>
+                                                            
                                                             </div>
                                                         </div>
 
@@ -217,7 +213,7 @@ include('../../Conexion/conexion.php');
                                                             <div class="input-group-prepend">
                                                                 <div class="input-group-text"><i class="fas fa-envelope"></i>
                                                                 </div>
-                                                                <input type="email" class="form-control" name="Email" id="Email" placeholder="contacto@dominio.com">
+                                                                <input type="email" class="form-control" name="Email" id="Email" placeholder="contacto@dominio.com" disabled>
                                                             </div>
                                                         </div>
 
@@ -226,7 +222,7 @@ include('../../Conexion/conexion.php');
                                                             <div class="input-group-prepend">
                                                                 <div class="input-group-text"><i class="fas fa-user"></i>
                                                                 </div>
-                                                                <input type="text" class="form-control" name="address" id="address" placeholder="Nombre y Apellido...">
+                                                                <input type="text" class="form-control" name="contacto" id="contacto" placeholder="Nombre y Apellido..." disabled>
                                                             </div>
                                                         </div>
 
@@ -272,7 +268,7 @@ include('../../Conexion/conexion.php');
                                                             <div class="header">
                                                                 <div class="form-row">
                                                                     <div class="col rounded-lg" style="background: #D6EAF8; margin-left: 2px; border-color: #85929E; text-align: center;">
-                                                                        <label for="inputNombreEmpleado" style="margin-top: 10%;">Instalación:</label>
+                                                                        <label for="inputNombreEmpleado" style="margin-top: 10%; margin-left: 50px;">Instalación:</label>
                                                                     </div>
                                                                     <div class="col rounded-lg" style="background: #D6EAF8; margin-left: 2px; border-color: #85929E; text-align: center;">
                                                                         <label for="inputNombreEmpleado" style="margin-top: 10%;">Area:</label>
@@ -292,9 +288,7 @@ include('../../Conexion/conexion.php');
                                                                     <div class="col rounded-lg" style="background: #D6EAF8; margin-left: 2px; border-color: #85929E; text-align: center;">
                                                                         <label for="inputNombreEmpleado" style="margin-top: 10%;">Cant. de Técnicos:</label>
                                                                     </div>
-                                                                    <div class="col rounded-lg" style="background: #D6EAF8; margin-left: 2px; border-color: #85929E; text-align: center;">
-                                                                        <label for="inputNombreEmpleado" style="margin-top: 10%;">Acciones:</label>
-                                                                    </div>
+                                                                    
                                                                 </div>
                                                             </div>
                                                             <div class="card-body">
@@ -333,17 +327,20 @@ include('../../Conexion/conexion.php');
                                                     <br>
                                                     
 
-                                                    <div id="seccion" >
+                                                    <div id="seccion" class="it" >
     
   
                                                                 </div>
 
-                                                                
+                                                                <p id="demo"></p>
                                                                 <!-- modal -->
-                                                                <div class="modal fade" id="FichaProductos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                            <div class="modal-dialog modal-lg" role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header" style="background-color:#3f668d">
+
+
+                                                                <div class="modal" id="modal1" data-animation="slideInOutLeft">
+                                                                <div class="modal-dialog modal-lg" style="background-color: rgba(0,0,0, 0.5) !important;" role="document">
+  <div class="modal-content">
+
+  <div class="modal-header" style="background-color:#3f668d">
                                                                 <h5 class="modal-title" style="color:white" id="exampleModalLabel">Area 1</h5>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
@@ -360,7 +357,7 @@ include('../../Conexion/conexion.php');
                                                                         <div class="input-group-prepend">
                                                                         <div class="input-group-text"><i class="fas fa-mobile"></i>
                                                                         </div>
-                                                                        <input type="text" class="form-control" name="descrip_prodp" id="descrip_prod" placeholder="911111111" value="5">
+                                                                        <input type="text" class="form-control" name="descrip_prodp" id="descrip_prod" placeholder="911111111" value="">
                                                                         </div>
 
                                                                     </div>
@@ -385,6 +382,70 @@ include('../../Conexion/conexion.php');
 
 
                                                                 </div>
+  </div>
+</div>
+
+</div>
+
+
+                                                                <div class="modal fade" id="FichaProductos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog modal-lg" >
+                                                            <div class="modal-content">
+                                                                <div class="modal-header" style="background-color:#3f668d">
+                                                                <h5 class="modal-title" style="color:white" id="exampleModalLabel"> <div id="titulo">  </div>  </h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                <form method="POST" action="#">
+                                                                    <h4 style="font-size:20px;font-weight:bold;margin:auto;margin-bottom:4px;border-bottom-style: solid;border-bottom-color: #00c0ef;">
+                                                                    Datos del Producto:</h4>
+                                                                    <div class="form-row item">
+                                                                    
+                                                                    <div class="form-group col-md-6">
+                                                                        <label for="inputTlf">Descripción del Producto</label>
+                                                                        <div class="input-group-prepend">
+                                                                        <div class="input-group-text"><i class="fas fa-mobile"></i>
+                                                                        </div>
+                                                                        <input type="text" class="form-control" name="descrip_prodp" id="descrip_prodp" placeholder="Descripcion" value="">
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div class="form-group col-md-6">
+                                                                        <label for="inputActividad">Cantidad:</label>
+                                                                        <div class="input-group-prepend">
+                                                                        <div class="input-group-text"><i class="fas fa-briefcase"></i>
+                                                                        </div>
+                                                                        <input type="text" class="form-control" name="cant_prod" id="cant_prod" placeholder="Ingrese cantidad" value="">
+                                                                        </div>
+                                                                    </div>
+                                                                    </div>
+
+                                                                    <div class="container">
+  <div class="row">
+    <div class="col-sm">
+    <label>Producto</label> 
+    </div>
+    <div class="col-sm">
+    <label style="margin-left: -120px;">Cantidad</label>
+    </div>
+    </div>
+  </div>
+                                                                   <div class="Lista" id="Lista">
+
+                                                                   </div>
+
+                                                                    <div class="modal-footer">
+                                                                    <div class="input-group-btn">
+                                                                    <button type="button" class="btn btn-success btn-xs" onclick="cantidades(false);" style="margin-left: 10px;"> <i class="fas fa-plus"></i> </button>
+                                                                    </div>
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                                    </div>
+                                                                </form>
+
+
+                                                                </div>
 
                                                             </div>
                                                             </div>
@@ -392,7 +453,7 @@ include('../../Conexion/conexion.php');
   
                                                     
                                                     <button class="btn btn-primary mt-5" onclick="stepper1.previous()">Anterior</button>
-                                                    <a href="../Cliente/contrato.php"><button type="button" id="enviar" class="btn btn-primary mt-5">Registrar</button></a>
+                                                    <a href="../Cliente/resumenContrato.php"><button type="button" id="enviar" class="btn btn-primary mt-5">Registrar</button></a>
                                                 </div>
                                             </form>
                                         </div>
@@ -588,17 +649,18 @@ let html2 = Array.from(dato).map(item2 => {
 });
 
 let html3 = Array.from(dato).map(item3 => {
-  let instal1 = $(item3).find("#TipIns").val()
-  let area = $(item3).find("#AreaCont").val()
-  let servicio = $(item3).find("#serv").val()
-  let tipoServ = $(item3).find("#tipo").val()
-  let date = $(item3).find("#date").val()
-  let periodo = $(item3).find("#periodo").val()
-  let cantidad = $(item3).find("#cantidad").val()
+  let instal1 = $(item3).find("#TipIns").val();
+  let area = $(item3).find("#AreaCont").val();
+  let servicio = $(item3).find("#serv").val();
+  let tipoServ = $(item3).find("#tipo").val();
+  let date = $(item3).find("#date").val();
+  let periodo = $(item3).find("#periodo").val();
+  let cantidad = $(item3).find("#cantidad").val();
+  let productos = [];
   
   // console.log(descrip,cantp);
   //console.log(descrip1);
-   return { instal1,area,servicio,tipoServ,date,periodo,cantidad }
+   return { instal1,area,servicio,tipoServ,date,periodo,cantidad,productos }
   //Literal strings `` para retornar html
   
 });
@@ -671,22 +733,26 @@ console.log(arrayUniqueByKey);
 console.log(html2);
 
 
+
 for (let i = 0; i < html3.length; i++) {
-    
+   
     for (let j = 0; j < bigAreas.length; j++) {
     if (bigAreas[j].id_area == html3[i].area) {
      
         html3[i].nombre=bigAreas[j].NombreArea;
+        
         
     }
     if (bigAreas1[j].id == html3[i].tipoServ) {
      
      html3[i].serv=bigAreas1[j].Nombre;
      
+     
  }
  if (bigAreas2[j].ID_lista == html3[i].servicio) {
      
      html3[i].tserv=bigAreas2[j].Nombre;
+     
      
  }
     
@@ -717,26 +783,74 @@ for (let i = 0; i < arrayUniqueByKey.length; i++) {
 }
 totaleas[i]=areasss.concat(vacio);
 }
+
 console.log(totaleas);
 console.log(html3); //vas a guardar este array 
-console.log(bigAreas)
-console.log(bigAreas1)
-console.log(bigAreas2)
+localStorage.setItem("data", JSON.stringify(html3));
+console.log(bigAreas);
+console.log(bigAreas1);
+console.log(bigAreas2);
 for (i=0;i<arrayUniqueByKey.length;i++) {
      //localizar elementos principales
      menu[i]=document.getElementById("seccion");
      //crear elemento menu desplegable
-     menu[i].innerHTML+="<div id='subseccion"+i+"'><div class='accordion'><div class='card-header' id='heading"+i+"'><button class='btn  accordion-header' data-toggle='collapse' data-target='#collapse"+i+"' aria-expanded='true' aria-controls='collapse"+i+"'>"+arrayUniqueByKey[i]['nombre']+"</button><div id='collapse"+i+"' class='collapse show' aria-labelledby='heading"+i+"' data-parent='#accordion'><div id='subseccions"+i+"'></div></div></div></div></div>"
+     menu[i].innerHTML+=`<div id='subseccion${i}'>
+     <div class='accordion'>
+     <div class='card-header' id='heading${i}'>
+     <button class='btn  accordion-header' data-toggle='collapse' data-target='#collapse${i}' aria-expanded='true' aria-controls='collapse${i}'> ${arrayUniqueByKey[i]['nombre']}</button>
+     <div id='collapse${i}' class='collapse show' aria-labelledby='heading${i}' data-parent='#accordion'>
+     <div id='subseccions${i}'>
+     <div class="container">
+  <div class="row">
+    <div class="col-sm">
+    <label>Area</label> 
+    </div>
+    <div class="col-sm">
+    <label>Tipo Servicio</label>
+    </div>
+    <div class="col-sm">
+    <label>Lista Servicio</label>
+    </div>
+    <div class="col-4">
+    <label>Descripcion Producto</label>
+    </div>
+    <div class="col-sm">
+    <label>Agregar</label>
+    </div>
+  </div>
+</div>
+     
+     
+     
+     
+     
+     </div>
+     </div>
+     </div>
+     </div>
+     </div>`
      //localizar elemento menu desplegable
       submenu[i]=document.getElementById('subseccions'+i);
     //  //escribir menu desplegable
        for (j=0;j<totaleas[i].length;j++) {
 
 
-        submenu[i].innerHTML += "<table><tr><th scope='col'>Area</th><th scope='col'>Tipo servicio</th><th scope='col'>Lista de Servicio</th></tr><tr><th scope='row'>"+totaleas[i][j]['nombre']+"</th><td>"+totaleas[i][j]['tserv']+"</td><td>"+totaleas[i][j]['serv']+"</td></tr> </table>";
-          // submenu[i].innerHTML += "<p><a >"+totaleas[i][j]['nombre']+"</a> <Button style='margin-left: 5%;' type='button' class='btn btn-primary' data-toggle='modal' data-target='#FichaProductos'>Productos</Button></p>";
+
+        submenu[i].innerHTML += `<table>
+         <tr>
+        <td ><div style="width:160px; margin-left: 15px; ">${totaleas[i][j]['nombre']}</div></td>
+         <td><div style="width:120px; margin-left: 15px; ">${totaleas[i][j]['tserv']}</div></td>
+         <td><div style="width:160px; margin-left: 25px;">${totaleas[i][j]['serv']}</div></td>
+         <td><Button style='margin-left: 370px;' type='button' class='btn btn-primary' data-toggle='modal' data-target='#FichaProductos' onclick='modal(${JSON.stringify(totaleas[i][j])});'>Productos</Button></td>
+         </tr> 
+         </table>`;
+           //submenu[i].innerHTML += "<p><a >"+totaleas[i][j]['nombre']+"</a> <Button style='margin-left: 5%;' type='button' class='btn btn-primary' data-toggle='modal' data-target='#FichaProductos' onclick='cantidades("+JSON.stringify(totaleas[i][j])+");'>Productos</Button></p>";
+           //submenu[i].innerHTML += "<p><a >"+totaleas[i][j]['nombre']+"</a> <Button style='margin-left: 5%;' type='button' class='btn btn-primary' data-toggle='modal' data-target='#FichaProductos'>Productos</Button></p>";<Button style='margin-left: 5%;' type='button' class='btn btn-primary' data-toggle='modal' data-target='#FichaProductos' data-book-id="+i+" >Productos</Button>
           }
-    //  //estilo de los submenús
+    //      <td> <input id='sum${i}${j}' name='sum${i}${j}' style="width:60px; margin-left: 60px;" /></td>
+    //<td> <input id='cant${i}${j}' name='cant[]' value='' style="width:60px; margin-left: 60px;"/></td>
+     //   <td><button type='button' class='btn btn-success btn-xs' onclick='cantidades(${i},${j});' style='margin-left: 10px;'> <i class='fas fa-plus'></i> </button></td>
+    //estilo de los submenús
     //  menu[i].style.position="relative";
     //  submenu[i].style.position="absolute";
     //  submenu[i].style.top="100%";
@@ -754,40 +868,141 @@ for (i=0;i<arrayUniqueByKey.length;i++) {
             document.getElementById("formulario").submit();
         })
 
-        function cantidades() {
-	
+
+
+        function modal(i) {
+            //console.log(i);
+let o= i
+let first= true;
+localStorage.setItem("pro", JSON.stringify(o));
+            cantidades(first);
+        }
+
+        function cantidades(v) {
+            let datt = localStorage.getItem('data');
+             let pro = localStorage.getItem('pro');
+            let u = JSON.parse(datt);
+            let t = JSON.parse(pro);
+
+
+            document.getElementById("titulo").innerHTML = '' 
+ let titu = document.getElementById('titulo') ;
+ console.log(t.nombre)
+ titu.innerHTML += `
+
+ <div class="container">
+  <div class="row">
+    <div class="col-sm">
+    <label  style="font-size: 15px;" >Area: ${t.nombre}</label> 
+    </div>
+    <div class="col-sm">
+    <label style="font-size: 15px;">Tipo Servicio:${t.tserv}</label>
+    </div>
+    <div class="col-sm">
+    <label style="font-size: 15px;">Lista Servicio: ${t.serv}</label>
+    </div>
+  </div>
+</div>
+ `
+
+
+             
+let a = t;
+let index;
+         
+            var r= document.getElementsByClassName("modal fade");
+             for (let i = 0; i < u.length; i++) {
+                console.log(a)
+                if(a.area === u[i].area && a.instal1 === u[i].instal1 && a.servicio === u[i].servicio && a.tipoServ === u[i].tipoServ){
+                    let product = {}
+             product.descripcion =$(r).find("#descrip_prodp").val()
+             product.cantidad=$(r).find("#cant_prod").val()
+             index=i;
+
+             if( v != true){
+
+                if(product.descripcion != '' && product.cantidad !='' ){
+    u[i].productos.push(product);
+            
+
+            localStorage.setItem("data", JSON.stringify(u));
+
+
+}
+
+
+             }else{
+                document.getElementById("Lista").innerHTML = ''
+ let p = document.getElementById('Lista') ;
+
+for (j=0;j<u[index].productos.length;j++) {
+p.innerHTML += `<table>
+<tr>
+<td ><div style="width:160px;margin-left: 100px; ">${u[index].productos[j].descripcion}</div></td>
+<td><div style="width:120px; margin-left: 200px; ">${u[index].productos[j].cantidad}</div></td>
+</tr> 
+</table>`
+}  
+
+             }
+
       
-        
-            //var i2=index
-            var dato= document.getElementsByClassName("item");
+          
+
+                }
+
+ }
+ document.getElementById("Lista").innerHTML = ''
+ let p = document.getElementById('Lista') ;
+
+for (j=0;j<u[index].productos.length;j++) {
+p.innerHTML += `<table>
+<tr>
+<td ><div style="width:160px;margin-left: 100px; ">${u[index].productos[j].descripcion}</div></td>
+<td><div style="width:120px; margin-left: 200px; ">${u[index].productos[j].cantidad}</div></td>
+</tr> 
+</table>`
+}
+$(r).find("#descrip_prodp").val('')
+$(r).find("#cant_prod").val('')  
+      
+console.log(u);
+console.log(u[index].productos[0].descripcion);
+      
+    //   console.log(j);
+    //         //var i2=index
+    //         var dato= document.getElementsByClassName("it");
               
-            let html = Array.from(dato).map(item => {
-        console.log(item);
-        let descrip = $(item).find("#descrip_prod").val()
-        let cantp = $(item).find("#cant_prod").val()
-        console.log(descrip,cantp);
-        return { descrip, cantp}
-        //Literal strings `` para retornar html
+    //         let html = Array.from(dato).map(item => {
+    //     console.log(item);
+    //     let name='suma'+i+j;
+    //     let descrip = $(item).find("#cant"+i+j).val();
+    //     let cantp = $(item).find("#sum"+i+j).val();
+    //     let suma =  Number(cantp)+Number(descrip);
+    //     $(item).find("#sum"+i+j).val(suma);
+    //     //document.querySelector("name=" + name + "]").value = suma;
+    //     console.log(descrip);
+    //     return {suma };
+    //     //Literal strings `` para retornar html
         
-    });
-    var dato= document.getElementsByClassName("item3");
-    var dato1= document.getElementsByName("TipIns[]").value;
-    console.log(dato1)
-    let html2 = Array.from(dato).map(item2 => {
-        console.log(item2);
-        let descrip1 = $(item2).find("#cantidad").val()
-         let instal = $(item2).find("#TipIns").val()
-        // console.log(descrip,cantp);
-        console.log(descrip1);
-         return { descrip1, instal}
-        //Literal strings `` para retornar html
+    // });
+    // var dato= document.getElementsByClassName("item3");
+    
+    // let html2 = Array.from(dato).map(item2 => {
+    //     console.log(item2);
+    //     let descrip1 = $(item2).find("#cantidad").val()
+    //      let instal = $(item2).find("#TipIns").val()
+    //     // console.log(descrip,cantp);
+    //     console.log(descrip1);
+    //      return { descrip1, instal}
+    //     //Literal strings `` para retornar html
         
-    });
-    setTimeout(()=>{
-        alert(html[0]['cantp'])
-        console.log(html2)
-        alert(html2)     
-    },1000);
+    // });
+    // setTimeout(()=>{
+    //     console.log(html);
+    //     console.log(html2)
+         
+    // },1000);
 
 }
 
@@ -839,23 +1054,9 @@ function BorrarRegistro() {
     
 }
 
-
     </script>
 </body>
 
 </html>
 
 
-
-<table>
-    <tr>
-        <th scope="col">Player</th>
-        <th scope="col">Gloobles</th>
-        <th scope="col">Za'taak</th>
-    </tr>
-    <tr>
-        <th scope="row">TR-7</th>
-        <td>7</td>
-        <td>4,569</td>
-    </tr> 
-</table>

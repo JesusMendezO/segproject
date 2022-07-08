@@ -6,12 +6,17 @@
                               $valores = mysqli_fetch_array($query);
                             //  $html=$valores['Rut'];
                             //  $html.=$valores['Nombre'];
+                            $comuna=$valores['Ciudad'];
+                            $sql1 = ("SELECT Nombre_comuna FROM comuna where id_comuna='$comuna'");
+                            $query1 = $conn->query($sql1);
+                           $valores1 = mysqli_fetch_array($query1);
 
                              $datos= array (
                                     "Rut" => $valores['Rut'],
                                     "Direccion"=> $valores['Direccion'],
                                     "Email"=> $valores['Email'],
-                                    "Representante"=> $valores['Representante']
+                                    "Representante"=> $valores['Representante'],
+                                    "comuna"=>$valores1['Nombre_comuna']
                                     
                           );
                             //  for($i=0;$i<count($valores);$i++) 
@@ -27,3 +32,22 @@
                              echo json_encode($datos);
                                                                
 ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
