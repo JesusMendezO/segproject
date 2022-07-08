@@ -1,6 +1,11 @@
 <?php
 include('../Conexion/conexion.php');
 
+///
+// $Rut= $_POST['datos'];
+// echo json_encode($Rut) 
+//Se recibe el array con los datos
+
 $folio = 1;
 $Femision = $_POST['Femision'];
 $cliente = $_POST['cliente'];

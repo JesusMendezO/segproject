@@ -453,7 +453,7 @@ include('../../Conexion/conexion.php');
   
                                                     
                                                     <button class="btn btn-primary mt-5" onclick="stepper1.previous()">Anterior</button>
-                                                    <a href="../Cliente/resumenContrato.php"><button type="button" id="enviar" class="btn btn-primary mt-5">Registrar</button></a>
+                                                    <a href="../Cliente/resumenContrato.php"><button type="button" id="enviar" class="btn btn-primary mt-5" onclick="registrar()">Registrar</button></a>
                                                 </div>
                                             </form>
                                         </div>
@@ -1052,6 +1052,18 @@ function BorrarRegistro() {
         });
 	});
     
+}
+
+function registrar(){
+
+let regis = localStorage.getItem('data');
+        
+        let r = JSON.parse(regis);
+        
+$.post("../../PHP/INSERTAR_contrato.php", { datos: r}, function(data){
+            console.log(data);
+            alert(data);
+        });
 }
 
     </script>
