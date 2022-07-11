@@ -657,10 +657,21 @@ let html3 = Array.from(dato).map(item3 => {
   let periodo = $(item3).find("#periodo").val();
   let cantidad = $(item3).find("#cantidad").val();
   let productos = [];
+  let  folito = document.getElementById("folio").value;
+  let femision = document.getElementById("Femision").value; 
+  
+  let cliente = document.getElementById("cliente").value; 
+  let rut = document.getElementById("RUT").value;
+  let address = document.getElementById("address").value;
+  let email = document.getElementById("Email").value;
+  let contacto = document.getElementById("contacto").value;
+  let comuna = document.getElementById("comuna").value ;
+  let tcontrato = document.getElementById("tcontrato").value;
+
   
   // console.log(descrip,cantp);
   //console.log(descrip1);
-   return { instal1,area,servicio,tipoServ,date,periodo,cantidad,productos }
+   return { instal1,area,servicio,tipoServ,date,periodo,cantidad,productos,folito,femision,cliente,rut,address,email,contacto,comuna,tcontrato }
   //Literal strings `` para retornar html
   
 });
