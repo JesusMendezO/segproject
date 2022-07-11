@@ -33,7 +33,7 @@ include('../../Conexion/conexion.php');
     <link rel="stylesheet" href="../../Apartados/Cliente/css/style.css">
     <link rel="stylesheet" href="../Cliente/css/accordion.css">
 </head>
-
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <body class="hold-transition sidebar-mini bodyp ">
     <div class="wrapper">
@@ -121,9 +121,14 @@ include('../../Conexion/conexion.php');
                                                                 <?php
                                                                   $sql = ("SELECT * FROM contrato ORDER by Folio DESC LIMIT 1");
                                                                   $query = $conn->query($sql);
-                                                                  $valores = mysqli_fetch_array($query)                                                                                        
+                                                                  $valores = mysqli_fetch_array($query); 
+                                                                  if( count($valores) > 0 ){
+                                                                      $valor= date("Y-m-d");
+                                                                  } else {
+                                                                      $valor=$valores["Folio"]+1;
+                                                                  }                                                                                      
                                                                 ?>                      
-                                                                <input type="text" class="form-control" name="folio" id="folio" value="<?php echo $valor=$valores["Folio"]+1;?>" disabled >
+                                                                <input type="text" class="form-control" name="folio" id="folio" value="<?php echo $valor;?>" disabled >
                                                             </div>
                                                         </div>
 
@@ -417,7 +422,7 @@ include('../../Conexion/conexion.php');
                                                                         <div class="input-group-prepend">
                                                                         <div class="input-group-text"><i class="fas fa-briefcase"></i>
                                                                         </div>
-                                                                        <input type="text" class="form-control" name="cant_prod" id="cant_prod" placeholder="Ingrese cantidad" value="">
+                                                                        <input type="text" class="form-control" name="cant_prod" id="cant_prod" placeholder="Ingrese cantidad" pattern="[0-9]{10}"  value="">
                                                                         </div>
                                                                     </div>
                                                                     </div>
@@ -453,7 +458,7 @@ include('../../Conexion/conexion.php');
   
                                                     
                                                     <button class="btn btn-primary mt-5" onclick="stepper1.previous()">Anterior</button>
-                                                    <a href="../Cliente/resumenContrato.php"><button type="button" id="enviar" class="btn btn-primary mt-5" onclick="registrar()">Registrar</button></a>
+                                                    <a ><button type="button" id="enviar" class="btn btn-primary mt-5" onclick="registrar()">Registrar</button></a>
                                                 </div>
                                             </form>
                                         </div>
@@ -532,6 +537,7 @@ include('../../Conexion/conexion.php');
     <script src="../../recursos/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
     <script src="../../recursos/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
     <script src="sweetalert2.all.min.js"></script>
+    
     <script>
         $(function() {
             $("#example1").DataTable({
@@ -549,7 +555,7 @@ include('../../Conexion/conexion.php');
             });
         });
     </script>
-    <script>
+    <script src="sweetalert2.all.min.js">
         $(document).ready(function() {
             $(' .$editbtn').on('click', function() {
 
@@ -657,10 +663,21 @@ let html3 = Array.from(dato).map(item3 => {
   let periodo = $(item3).find("#periodo").val();
   let cantidad = $(item3).find("#cantidad").val();
   let productos = [];
+  let  folito = document.getElementById("folio").value;
+  let femision = document.getElementById("Femision").value; 
+  
+  let cliente = document.getElementById("cliente").value; 
+  let rut = document.getElementById("RUT").value;
+  let address = document.getElementById("address").value;
+  let email = document.getElementById("Email").value;
+  let contacto = document.getElementById("contacto").value;
+  let comuna = document.getElementById("comuna").value ;
+  let tcontrato = document.getElementById("tcontrato").value;
+
   
   // console.log(descrip,cantp);
   //console.log(descrip1);
-   return { instal1,area,servicio,tipoServ,date,periodo,cantidad,productos }
+   return { instal1,area,servicio,tipoServ,date,periodo,cantidad,productos,folito,femision,cliente,rut,address,email,contacto,comuna,tcontrato }
   //Literal strings `` para retornar html
   
 });
@@ -796,11 +813,11 @@ for (i=0;i<arrayUniqueByKey.length;i++) {
      //crear elemento menu desplegable
      menu[i].innerHTML+=`<div id='subseccion${i}'>
      <div class='accordion'>
-     <div class='card-header' id='heading${i}'>
-     <button class='btn  accordion-header' data-toggle='collapse' data-target='#collapse${i}' aria-expanded='true' aria-controls='collapse${i}'> ${arrayUniqueByKey[i]['nombre']}</button>
+    
+     <button class='btn  accordion-header' data-toggle='collapse' data-target='#collapse${i}' aria-expanded='false' aria-controls='collapse'> ${arrayUniqueByKey[i]['nombre']}</button>
      <div id='collapse${i}' class='collapse show' aria-labelledby='heading${i}' data-parent='#accordion'>
-     <div id='subseccions${i}'>
-     <div class="container">
+     <div id='subseccions${i}' >
+     <div class="container ">
   <div class="row">
     <div class="col-sm">
     <label>Area</label> 
@@ -814,10 +831,8 @@ for (i=0;i<arrayUniqueByKey.length;i++) {
     <div class="col-4">
     <label>Descripcion Producto</label>
     </div>
-    <div class="col-sm">
-    <label>Agregar</label>
-    </div>
-  </div>
+   
+  
 </div>
      
      
@@ -838,10 +853,10 @@ for (i=0;i<arrayUniqueByKey.length;i++) {
 
         submenu[i].innerHTML += `<table>
          <tr>
-        <td ><div style="width:160px; margin-left: 15px; ">${totaleas[i][j]['nombre']}</div></td>
-         <td><div style="width:120px; margin-left: 15px; ">${totaleas[i][j]['tserv']}</div></td>
-         <td><div style="width:160px; margin-left: 25px;">${totaleas[i][j]['serv']}</div></td>
-         <td><Button style='margin-left: 370px;' type='button' class='btn btn-primary' data-toggle='modal' data-target='#FichaProductos' onclick='modal(${JSON.stringify(totaleas[i][j])});'>Productos</Button></td>
+        <td ><div style="width:160px; margin-left: 30px; ">${totaleas[i][j]['nombre']}</div></td>
+         <td><div style="width:120px; margin-left: 100px; ">${totaleas[i][j]['tserv']}</div></td>
+         <td><div style="width:160px; margin-left: 90px;">${totaleas[i][j]['serv']}</div></td>
+         <td><Button style='margin-left: 150px;' type='button' class='btn btn-primary' data-toggle='modal' data-target='#FichaProductos' onclick='modal(${JSON.stringify(totaleas[i][j])});'>Productos</Button></td>
          </tr> 
          </table>`;
            //submenu[i].innerHTML += "<p><a >"+totaleas[i][j]['nombre']+"</a> <Button style='margin-left: 5%;' type='button' class='btn btn-primary' data-toggle='modal' data-target='#FichaProductos' onclick='cantidades("+JSON.stringify(totaleas[i][j])+");'>Productos</Button></p>";
@@ -896,10 +911,10 @@ localStorage.setItem("pro", JSON.stringify(o));
     <label  style="font-size: 15px;" >Area: ${t.nombre}</label> 
     </div>
     <div class="col-sm">
-    <label style="font-size: 15px;">Tipo Servicio:${t.tserv}</label>
+    <label  style="font-size: 15px;">Tipo Servicio:${t.tserv}</label>
     </div>
     <div class="col-sm">
-    <label style="font-size: 15px;">Lista Servicio: ${t.serv}</label>
+    <label  style="font-size: 15px;">Lista Servicio: ${t.serv}</label>
     </div>
   </div>
 </div>
@@ -928,6 +943,13 @@ let index;
             localStorage.setItem("data", JSON.stringify(u));
 
 
+}else{
+    Swal.fire({
+  icon: 'error',
+  title: 'Error',
+  text: 'Ingrese Los datos del Producto',
+  //footer: '<a href="">Why do I have this issue?</a>'
+})
 }
 
 
@@ -938,8 +960,8 @@ let index;
 for (j=0;j<u[index].productos.length;j++) {
 p.innerHTML += `<table>
 <tr>
-<td ><div style="width:160px;margin-left: 100px; ">${u[index].productos[j].descripcion}</div></td>
-<td><div style="width:120px; margin-left: 200px; ">${u[index].productos[j].cantidad}</div></td>
+<td ><div  class="border-bottom border-secondary" style="width:160px;margin-left: 100px; ">${u[index].productos[j].descripcion}</div></td>
+<td ><div class="border-bottom border-secondary" style="width:120px; margin-left: 200px; ">${u[index].productos[j].cantidad}</div></td>
 </tr> 
 </table>`
 }  
@@ -958,8 +980,8 @@ p.innerHTML += `<table>
 for (j=0;j<u[index].productos.length;j++) {
 p.innerHTML += `<table>
 <tr>
-<td ><div style="width:160px;margin-left: 100px; ">${u[index].productos[j].descripcion}</div></td>
-<td><div style="width:120px; margin-left: 200px; ">${u[index].productos[j].cantidad}</div></td>
+<td ><div class="border-bottom border-secondary" style="width:160px;margin-left: 100px; ">${u[index].productos[j].descripcion}</div></td>
+<td ><div class="border-bottom border-secondary" style="width:120px; margin-left: 200px; ">${u[index].productos[j].cantidad}</div></td>
 </tr> 
 </table>`
 }
@@ -969,40 +991,7 @@ $(r).find("#cant_prod").val('')
 console.log(u);
 console.log(u[index].productos[0].descripcion);
       
-    //   console.log(j);
-    //         //var i2=index
-    //         var dato= document.getElementsByClassName("it");
-              
-    //         let html = Array.from(dato).map(item => {
-    //     console.log(item);
-    //     let name='suma'+i+j;
-    //     let descrip = $(item).find("#cant"+i+j).val();
-    //     let cantp = $(item).find("#sum"+i+j).val();
-    //     let suma =  Number(cantp)+Number(descrip);
-    //     $(item).find("#sum"+i+j).val(suma);
-    //     //document.querySelector("name=" + name + "]").value = suma;
-    //     console.log(descrip);
-    //     return {suma };
-    //     //Literal strings `` para retornar html
-        
-    // });
-    // var dato= document.getElementsByClassName("item3");
-    
-    // let html2 = Array.from(dato).map(item2 => {
-    //     console.log(item2);
-    //     let descrip1 = $(item2).find("#cantidad").val()
-    //      let instal = $(item2).find("#TipIns").val()
-    //     // console.log(descrip,cantp);
-    //     console.log(descrip1);
-    //      return { descrip1, instal}
-    //     //Literal strings `` para retornar html
-        
-    // });
-    // setTimeout(()=>{
-    //     console.log(html);
-    //     console.log(html2)
-         
-    // },1000);
+   
 
 }
 
@@ -1054,16 +1043,17 @@ function BorrarRegistro() {
     
 }
 
+
 function registrar(){
 
-let regis = localStorage.getItem('data');
-        
-        let r = JSON.parse(regis);
-        
-$.post("../../PHP/INSERTAR_contrato.php", { datos: r}, function(data){
-            console.log(data);
-            alert(data);
-        });
+    let regis = localStorage.getItem('data');
+            
+            let r = JSON.parse(regis);
+            
+    $.post("../../PHP/INSERTAR_contrato.php", { datos: r}, function(data){
+               // console.log(data);
+               // alert(data);
+            });
 }
 
     </script>
