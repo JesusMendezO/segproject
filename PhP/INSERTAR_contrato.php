@@ -1,18 +1,23 @@
 <?php
 include('../Conexion/conexion.php');
 
+$variables = $_POST['datos'];
+
 ///
 // $Rut= $_POST['datos'];
 // echo json_encode($Rut) 
-//Se recibe el array con los datos
 
-$folio = 1;
-$Femision = $_POST['Femision'];
-$cliente = $_POST['cliente'];
 
-$Email = $_POST['Email'];
-$Pcontacto = $_POST['Pcontacto'];
-$tcontrato = $_POST['tcontrato'];
+$folio = $variables[0]['folito'];
+$Femision = $variables[0]['femision'];
+$cliente = $variables[0]['cliente'];
+
+$Email
+    = $variables[0]['email'];
+$Pcontacto
+    = $variables[0]['contacto'];
+$tcontrato =
+    $variables[0]['tcontrato'];
 
 
 $insertar = "INSERT INTO contrato(Folio,Femision,id_cliente,tcontrato,Pcontacto,email) 
@@ -34,45 +39,28 @@ $valores = mysqli_fetch_row($query);
 
 
 
-$tinstalacion = $_POST['TipIns'];
 
-$areacontrato = $_POST['AreaCont'];
+// $json = $_POST['datos'];
+// $json[$i][$productos];
 
-$listservicio = $_POST['listservicio'];
+for ($i = 0; $i < count($variables); $i++) {
 
-$listservicioV = $_POST['listservicioV'];
+    $tinstalacion =  $variables[$i]['instal1'];
 
-$pro_precio = $_POST['pro_precio'];   //fecha
-$TipPer = $_POST['TipPer'];
-$pro_cantidad = $_POST['pro_cantidad'];
+    $areacontrato =  $variables[$i]['area'];
 
+    $listservicio =  $variables[$i]['servicio'];
 
-if ($tinstalacion != NULL) {
+    $listservicioV = $variables[$i]['tipoServ'];
 
-    if ($areacontrato != NULL) {
-
-        if ($listservicio != NULL) {
-
-            if ($listservicioV != NULL) {
-
-                if ($pro_precio != NULL) {
-
-                    if ($TipPer != NULL) {
-
-                        if ($pro_cantidad != NULL) {
-
-                            for ($i = 0; $i < count($tinstalacion); $i++) {
-                                $insertar = "INSERT INTO datos_servicios(id_contrato,id_instalacion,id_servicio,listaservicio,listservicioV,fecha_inicio,id_periodo,cantidad_tecnicos)
-                                VALUES('$valores[0]','$tinstalacion[$i]','$areacontrato[$i]','$listservicio[$i]','$listservicioV[$i]','$pro_precio[$i]',
-                                '$TipPer[$i]','$pro_cantidad[$i]')";
-                                $resultado = mysqli_query($conn, $insertar);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
+    $pro_precio =  $variables[$i]['date'];
+    $TipPer = $variables[$i]['periodo'];
+    $pro_cantidad =  $variables[$i]['cantidad'];
+    $producto = json_encode($variables[$i]['productos']);
+    $insertar = "INSERT INTO datos_servicios(id_contrato,id_instalacion,id_servicio,listaservicio,listservicioV,fecha_inicio,id_periodo,cantidad_tecnicos,Producto)
+                                VALUES('$valores[0]','$tinstalacion','$areacontrato','$listservicio','$listservicioV','$pro_precio',
+                                '$TipPer','$pro_cantidad','$producto')";
+    $resultado = mysqli_query($conn, $insertar);
 }
 
 
@@ -94,8 +82,8 @@ if ($tinstalacion != NULL) {
 //     }
 // }
 
-// if ($resultado) {
-//     echo "<script>alert('Registrado con éxito')</script>";
-//     header('Location:../Apartados/Cliente/get_contrato.php');
-//     die;
-// } else echo "error";
+if ($resultado) {
+    echo "<script>alert('Registrado con éxito')</script>";
+    header('Location:../Apartados/Cliente/get_contrato.php');
+    die;
+} else echo "error";
